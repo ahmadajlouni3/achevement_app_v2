@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Achievement Tracker + ToDo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>✨ Achievement Tracker</h1>
+      <h2>Hello, <span id="userName"></span>! Let’s crush it 🚀</h2>
+      <p>Current Streak: <strong id="streakCounter">0</strong> days</p>
+      <div class="header-controls">
+        <button id="themeToggle" aria-label="Toggle dark mode">🌙 Toggle Theme</button>
+        <button id="requestNotifications" aria-label="Request notification permission">🔔 Enable Notifications</button>
+        <button id="openSettings" aria-label="Open settings">⚙️ Settings</button>
+      </div>
+    </header>
+
+    <div class="main-sections">
+      <section id="achievementSection" aria-label="Achievement Tracker">
+        <div class="controls">
+          <button id="undoButton" disabled aria-label="Undo last action">↩️ Undo</button>
+          <button id="clearButton" aria-label="Reset tracker">Reset Tracker</button>
+          <button id="exportButton" aria-label="Export data">📤 Export Data</button>
+          <button id="exportPdfButton" aria-label="Export as PDF">📜 Export PDF</button>
+          <label for="importInput" class="import-label">
+            📥 Import Data
+            <input type="file" id="importInput" accept=".json" style="display: none;" />
+          </label>
+          <select id="backupRestore" aria-label="Restore from backup">
+            <option value="">Select Backup to Restore</option>
+          </select>
+        </div>
+
+        <section id="tableSection">
+          <h3>🗓️ Weekly Progress</h3>
+          <div id="tableContainer" role="grid"></div>
+        </section>
+
+        <section class="summary">
+          <h2>Total Achievements: <strong id="totalAchievements">0</strong> days</h2>
+        </section>
+
+        <section class="months-summary">
+          <h3>📅 Completed Months</h3>
+          <div id="monthsTable"></div>
+        </section>
+
+        <section class="years-summary">
+          <h3>📆 Completed Years</h3>
+          <div id="yearsTable"></div>
+        </section>
+
+        <section class="badges-summary">
+          <h3>🏅 Milestones Achieved</h3>
+          <div id="badgesTable"></div>
+        </section>
+      </section>
+
+      <section id="todoSection" aria-label="To-Do List">
+        <h3>📝 To Do List</h3>
+
+        <form id="taskForm" aria-label="Add new task">
+          <input type="text" id="taskNameInput" placeholder="Task name" required aria-label="Task name" />
+          <input type="number" id="taskDurationInput" placeholder="Duration (minutes)" min="1" required aria-label="Task duration in minutes" />
+          <input type="datetime-local" id="taskReminderInput" aria-label="Task reminder time" />
+          <textarea id="taskNotesInput" placeholder="Add notes (optional)" aria-label="Task notes"></textarea>
+          <select id="taskCategoryInput" aria-label="Task category"></select>
+          <select id="taskPriorityInput" aria-label="Task priority">
+            <option value="High">High</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="taskDependencyInput" aria-label="Task dependency">
+            <option value="">No Dependency</option>
+          </select>
+          <button type="submit">Add Task</button>
+          <button type="button" id="loadTemplate" aria-label="Load task template">📋 Load Template</button>
+        </form>
+
+        <div class="task-filter">
+          <label for="taskFilter">Filter Tasks:</label>
+          <select id="taskFilter" aria-label="Filter tasks">
+            <option value="all">All Tasks</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="High">High Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="Low">Low Priority</option>
+          </select>
+        </div>
+
+        <ul id="taskList" role="list" aria-label="Task list" draggable="true"></ul>
+
+        <div class="timer-controls">
+          <button id="startTasksButton" disabled aria-label="Start tasks">▶️ Start Tasks</button>
+          <button id="pauseTasksButton" disabled aria-label="Pause tasks">⏸️ Pause</button>
+          <button id="stopTasksButton" disabled aria-label="Stop tasks">⏹️ Stop</button>
+          <button id="exportCalendarButton" aria-label="Export tasks to calendar">📅 Export to Calendar</button>
+        </div>
+        <div id="taskTimer" style="margin-top: 10px; font-weight: bold;" aria-live="polite"></div>
+        <div id="taskProgress" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progressFill" style="width: 0%;"></div>
+        </div>
+
+        <section class="stats-summary">
+          <h3>📊 Task Statistics</h3>
+          <div id="statsTable">
+            <p>Completed Tasks: <strong id="completedTasks">0</strong></p>
+            <p>Pending Tasks: <strong id="pendingTasks">0</strong></p>
+            <p>Average Task Duration: <strong id="avgTaskDuration">0 min</strong></p>
+          </div>
+          <canvas id="progressChart" width="300" height="150" aria-label="Task completion chart"></canvas>
+        </section>
+      </section>
+    </div>
+
+    <div id="settingsModal" class="modal" role="dialog" aria-labelledby="settingsTitle" aria-hidden="true">
+      <div class="modal-content">
+        <h2 id="settingsTitle">Settings</h2>
+        <button class="close-modal" aria-label="Close settings">❌</button>
+        <form id="settingsForm">
+          <label for="newCategoryInput">Add Custom Category:</label>
+          <input type="text" id="newCategoryInput" placeholder="New category name" aria-label="New category name" />
+          <button type="submit">Add Category</button>
+        </form>
+        <ul id="customCategoriesList" aria-label="Custom categories"></ul>
+      </div>
+    </div>
+
+    <footer>
+      Made with ❤️ by Ahmad Alajlouni
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
