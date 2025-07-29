@@ -19,7 +19,7 @@ body {
 }
 
 body.dark-mode {
-  background: linear-gradient(135deg, #2a2a3a, #1a3a4a);
+  background: darkblue;
   color: #e0e0e0;
 }
 
